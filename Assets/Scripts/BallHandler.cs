@@ -12,6 +12,7 @@ public struct PhysicsResult
 
 public class BallHandler : MonoBehaviour
 {
+    public float BallRadius;
     public float InteractRange;
     public bool InRange(Vector3 other) => (other - transform.position).magnitude < InteractRange;
 
@@ -22,7 +23,7 @@ public class BallHandler : MonoBehaviour
 
     void Start()
     {
-        physics = new BallPhysics(transform, Time.fixedDeltaTime);
+        physics = new BallPhysics(transform, BallRadius, Time.fixedDeltaTime);
         
         currentPR = physics.GetResult();
         previousPR = physics.GetResult();
