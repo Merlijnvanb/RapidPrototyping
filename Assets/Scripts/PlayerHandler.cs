@@ -6,6 +6,8 @@ public class PlayerHandler : MonoBehaviour
     public KeyCode FocusKey = KeyCode.Mouse1;
     public KeyCode ShotKey = KeyCode.Mouse0;
 
+    public float BaseShotPower = 50f;
+
     private bool enableActions = false;
 
     // Update is called once per frame
@@ -26,7 +28,7 @@ public class PlayerHandler : MonoBehaviour
         if (Input.GetKey(ShotKey))
         {
             var dir = PlayerCamera.transform.forward;
-            var force = 10f;
+            var force = BaseShotPower;
             
             ball.Shot(dir, force);
         }

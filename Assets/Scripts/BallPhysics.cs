@@ -25,6 +25,7 @@ public class BallPhysics
     {
         currentDT = dt;
         
+        ApplyGravity();
         UpdatePosition();
     }
 
@@ -47,6 +48,11 @@ public class BallPhysics
     public void AddForce(Vector3 vector, float force)
     {
         velocity += vector * force;
+    }
+
+    private void ApplyGravity()
+    {
+        velocity.y += -9.81f * currentDT;
     }
 
     private void UpdatePosition()

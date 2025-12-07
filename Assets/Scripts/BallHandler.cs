@@ -41,6 +41,8 @@ public class BallHandler : MonoBehaviour
         
         previousPR = currentPR;
         currentPR = physics.GetResult();
+        
+        BallManager.Instance.CheckGoal(currentPR.Position);
 
         lastFixedUpdateTime = Time.time;
     }
