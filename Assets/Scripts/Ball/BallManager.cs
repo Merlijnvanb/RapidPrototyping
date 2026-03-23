@@ -4,6 +4,8 @@ using System;
 public class BallManager : MonoBehaviourSingleton<BallManager>
 {
     public GameObject BallPrefab;
+    public PhysicsConfig PhysicsConfig;
+
     public Transform SpawnPoint;
     public Transform Parent;
 
@@ -26,7 +28,7 @@ public class BallManager : MonoBehaviourSingleton<BallManager>
 
     public void CheckGoal(Vector3 pos)
     {
-        var scored = Goal.IsInside(pos, _ball.BallRadius);
+        var scored = Goal.IsInside(pos, PhysicsConfig.BallRadius);
         if (scored)
         {
             Debug.Log("Scored!");

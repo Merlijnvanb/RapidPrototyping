@@ -12,7 +12,6 @@ public struct PhysicsResult
 
 public class BallHandler : MonoBehaviour
 {
-    public float BallRadius;
     public float InteractRange;
     public bool InRange(Vector3 other) => (other - transform.position).magnitude < InteractRange;
 
@@ -23,7 +22,7 @@ public class BallHandler : MonoBehaviour
 
     void Start()
     {
-        physics = new BallPhysics(transform, BallRadius, Time.fixedDeltaTime);
+        physics = new BallPhysics(BallManager.Instance.PhysicsConfig, transform, Time.fixedDeltaTime);
         
         currentPR = physics.GetResult();
         previousPR = physics.GetResult();
@@ -49,6 +48,8 @@ public class BallHandler : MonoBehaviour
 
     public void Shot(Vector3 direction, float power)
     {
-        physics.SetVelocity(direction, power);
+        //Debug.Log("Before: " + currentPR.Velocity.magnitude);
+        physics.RedirectVelocity(direction, power);
+        //Debug.Log("After: " + physics.GetResult().Velocity.magnitude);
     }
 }

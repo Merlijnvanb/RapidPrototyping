@@ -2697,6 +2697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BallPrefab: {fileID: 1324042881280495274, guid: ec686d2e802367b49b0865461a207986, type: 3}
+  PhysicsConfig: {fileID: 11400000, guid: 93a9be6f1a7f8614eb0fae56c6540efd, type: 2}
   SpawnPoint: {fileID: 545201135}
   Parent: {fileID: 1095059939}
   Goal: {fileID: 1339353472}
@@ -3213,7 +3214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxTimeScale: 1
   MinTimeScale: 0.01
-  SlowDownSpeed: 10
+  SlowDownSpeed: 25
 --- !u!43 &1898207997
 Mesh:
   m_ObjectHideFlags: 0
@@ -3534,7 +3535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3401303925877228404, guid: 275d269e390c78346a2bcbacf86aa1a7, type: 3}
       propertyPath: BaseShotPower
-      value: 50
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3838952835302622350, guid: 275d269e390c78346a2bcbacf86aa1a7, type: 3}
       propertyPath: m_Name

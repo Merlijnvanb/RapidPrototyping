@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class BallPhysics
 {
-    private const float skin = 0.01f;
-    private float ballRadius;
+    private PhysicsConfig config;
     
     private Vector3 position;
     private Vector3 velocity;
@@ -11,14 +10,15 @@ public class BallPhysics
 
     private float currentDT;
 
-    public BallPhysics(Transform inTransform, float radius, float dt)
+    public BallPhysics(PhysicsConfig inConfig, Transform inTransform, float dt)
     {
-        ballRadius = radius;
-        currentDT = dt;
+        config = inConfig;
         
         position = inTransform.position;
         velocity = Vector3.zero;
         rotation = inTransform.rotation;
+        
+        currentDT = dt;
     }
 
     public void Update(float dt) // Should be called from FixedUpdate
@@ -42,12 +42,19 @@ public class BallPhysics
 
     public void SetVelocity(Vector3 vector, float force)
     {
-        velocity = vector * force;
+        velocity = vector * (force * currentDT);
     }
 
     public void AddForce(Vector3 vector, float force)
     {
-        velocity += vector * force;
+        velocity += vector * (force * currentDT);
+    }
+
+    public void RedirectVelocity(Vector3 vector, float force = 0f)
+    {
+        var magnitude = velocity.magnitude + (force * currentDT);
+        var newVelocity = vector * magnitude;
+        velocity = newVelocity;
     }
 
     private void ApplyGravity()
@@ -61,15 +68,15 @@ public class BallPhysics
         var direction = displacement.normalized;
         var maxDist = displacement.magnitude;
         
-        var hit = Physics.SphereCast(position, ballRadius, direction, out var hitInfo, maxDist);
+        var hit = Physics.SphereCast(position, config.BallRadius, direction, out var hitInfo, maxDist);
 
-        if (!hit)
+        if (!hit || hitInfo.collider.CompareTag("Player"))
         {
             position += displacement;
             return;
         }
 
-        var travelDist = hitInfo.distance - skin;
+        var travelDist = hitInfo.distance - config.BallSkin;
         if (travelDist < 0)
             travelDist = 0;
         
@@ -77,6 +84,6 @@ public class BallPhysics
 
         var normal = hitInfo.normal;
         var newVelocity = velocity - 2 * Vector3.Dot(velocity, normal) * normal;
-        velocity = newVelocity;
+        velocity = newVelocity * config.BounceCoefficient;
     }
 }

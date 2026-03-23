@@ -8,7 +8,12 @@ public class PlayerHandler : MonoBehaviour
 
     public float BaseShotPower = 50f;
 
-    private bool enableActions = false;
+    private bool enableActions;
+
+    void Start()
+    {
+        BaseShotPower /= Time.fixedUnscaledDeltaTime;
+    }
 
     // Update is called once per frame
     void Update()
@@ -25,7 +30,7 @@ public class PlayerHandler : MonoBehaviour
             TimeManager.Instance.SlowTimeScale();
         }
 
-        if (Input.GetKey(ShotKey))
+        if (Input.GetKeyDown(ShotKey))
         {
             var dir = PlayerCamera.transform.forward;
             var force = BaseShotPower;

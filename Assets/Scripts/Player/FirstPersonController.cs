@@ -4,6 +4,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class FirstPersonController : MonoBehaviour
 {
+    [Header("Input")]
+    public KeyCode JumpKey = KeyCode.Space;
+    public KeyCode SprintKey = KeyCode.LeftShift;
+    
     [Header("Camera")]
     public Camera PlayerCamera;
     public float MouseSensitivity;
@@ -11,6 +15,7 @@ public class FirstPersonController : MonoBehaviour
 
     [Header("Movement")]
     public float BaseWalkSpeed;
+    public float BaseSprintSpeed;
     public float MaxVelocityChange;
     public float AirManeuverMultiplier;
 
@@ -58,8 +63,10 @@ public class FirstPersonController : MonoBehaviour
 
     private void ApplyMovement()
     {
+        var speed = Input.GetKey(SprintKey) ? BaseSprintSpeed : BaseWalkSpeed;
+        
         Vector3 velocity = rb.linearVelocity;
-        Vector3 velocityChange = (GetMoveDir() * BaseWalkSpeed) - velocity;
+        Vector3 velocityChange = (GetMoveDir() * speed) - velocity;
         velocityChange = Vector3.ClampMagnitude(velocityChange, MaxVelocityChange);
         velocityChange.y = 0;
 
@@ -79,7 +86,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void CheckJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && jumpTimer <= 0)
+        if (Input.GetKeyDown(JumpKey) && isGrounded && jumpTimer <= 0)
         {
             Jump();
         }

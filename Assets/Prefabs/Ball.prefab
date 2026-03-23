@@ -45,8 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea35fdbd8d85a594389fbbff6062247d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PhysicsConfig: {fileID: 11400000, guid: 93a9be6f1a7f8614eb0fae56c6540efd, type: 2}
   BallRadius: 0.5
-  InteractRange: 3
+  InteractRange: 5
 --- !u!1 &1869462077424314376
 GameObject:
   m_ObjectHideFlags: 0
